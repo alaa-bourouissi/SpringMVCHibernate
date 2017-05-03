@@ -5,6 +5,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -18,11 +19,13 @@ import org.springframework.web.servlet.view.JstlView;
 
 import com.websystique.springmvc.converter.RoleToUserProfileConverter;
 import com.websystique.springmvc.converter.StringtoUser;
+import com.websystique.springmvc.converter.UserFormatter;
 
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.websystique.springmvc")
+@PropertySource(value = { "classpath:application.properties" })
 public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	
@@ -31,6 +34,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	
 	@Autowired
 	StringtoUser stringtoUser;
+	
+	@Autowired
+	UserFormatter userFormatter;
 	
 	
 	@Bean(name="multipartResolver")
@@ -66,8 +72,11 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
+    	UserFormatter formatter = new UserFormatter();
         registry.addConverter(roleToUserProfileConverter);
-        registry.addConverter(stringtoUser);
+        //registry.addFormatter(formatter);
+		registry.addConverter(stringtoUser);
+       
     }
 	
 

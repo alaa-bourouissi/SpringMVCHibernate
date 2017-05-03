@@ -55,6 +55,7 @@ public class AccountController {
 		if (result.hasErrors()) {
 			return "newaccount";
 		}
+		account.setUser(userService.findById(4));
 		accoutService.save(account);
 		
 		model.addAttribute("success","Account"+account.getName());

@@ -30,13 +30,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.websystique.springmvc.configuration.FileValidator;
-import com.websystique.springmvc.model.Car;
 import com.websystique.springmvc.model.FileBucket;
 import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.model.UserDocument;
 import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.AccoutService;
-import com.websystique.springmvc.service.CarService;
 import com.websystique.springmvc.service.UserDocumentService;
 import com.websystique.springmvc.service.UserProfileService;
 import com.websystique.springmvc.service.UserService;
@@ -140,6 +138,7 @@ public class AppController {
 		
 		
 		
+		
 		userService.saveUser(user);
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
@@ -207,6 +206,7 @@ public class AppController {
         model.addAttribute("fileBucket", fileModel);
  
         List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
+        
         model.addAttribute("documents", documents);
          
         return "managedocuments";
@@ -240,6 +240,7 @@ public class AppController {
             model.addAttribute("user", user);
  
             List<UserDocument> documents = userDocumentService.findAllByUserId(userId);
+            System.out.println("//////////////////////////////////////"+documents.size());
             model.addAttribute("documents", documents);
              
             return "managedocuments";

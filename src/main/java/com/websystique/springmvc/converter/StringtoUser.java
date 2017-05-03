@@ -8,25 +8,28 @@ import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.service.UserService;
 
 @Component
-public class StringtoUser implements Converter<Object, User>{
-	
+public class StringtoUser implements Converter<Object, User> {
+
 	@Autowired
-	UserService userService ;
+	UserService userService;
 
 	@Override
 	public User convert(Object element) {
-		if (element == null ) {
-            return null;
-        }
-		//Integer id = Integer.parseInt((String)element);
+		if (element == null) {
+			return null;
+		}
+
+		// Integer id = Integer.parseInt((String)element);
 		System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-		//Integer id = Integer.parseInt(element);
-		Integer id = ((User)element).getId();
+
+		if (element instanceof User) {
+			return (User) element;
+		}
+		Integer id = Integer.parseInt((String) element);
+		// Integer id = ((User)element).getId();
 		User user = userService.findById(id);
 		return user;
+
 	}
-
-	
-
 
 }
